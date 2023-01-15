@@ -7,18 +7,31 @@ function SignUp({onLogin}){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
+    const [testOutput, setTestOutput] = useState("")
 
 
 
 function handleSubmit(e){
     e.preventDefault();
-    
+    fetch ("/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+           user_name: username,
+           password: password,
+        }),
+    })
+    .then((response)=>response.json())
+    .then((user)=>setTestOutput(`${user.user_name}`))
 }
 
 
 
 return(
-
+    <div>
+        <h3>{testOutput}</h3>
     <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username </label>
         <input
@@ -45,6 +58,7 @@ return(
         />
         <button type="submit">submit</button>
     </form>
+    </div>
     );
 }
 
