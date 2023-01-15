@@ -1,30 +1,35 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import SignUp from "./SignUp";
 import '../App.css';
 
 function App() {
 
-const [users, setUsers] = useState([])
+const [usersArray, setUsersArray] = useState([])
+const [user, setUser] = useState(null);
 
 useEffect(()=>{
 
   fetch("/users")
   .then((r)=>r.json())
-  .then((users)=>setUsers(users))
-},[])
+  .then((usersArray)=>setUsersArray(usersArray))
+},[]);
+
+
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Town Board</h1>
-        <p>
+       <SignUp onLogin={setUser}/>
+        <h2>
         Users
-        {users.map((user)=>{
+        {usersArray.map((user)=>{
           return(
             <p>{user.user_name}</p>
           )
         })}
-        </p>
+        </h2>
       </header>
     </div>
   );

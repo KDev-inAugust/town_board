@@ -7,6 +7,4 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-u1=User.create(user_name: "Tim")
-u2=User.create(user_name: "Ennakaia")
-u3=User.create(user_name: "Molandy")
+
