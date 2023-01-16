@@ -18,13 +18,25 @@ useEffect(()=>{
   })
 },[])
 
+function handleLogin(){
+  fetch("/me")
+  .then((r)=> {
+    if (r.ok) {
+      r.json().then((user) => setUser(user));
+    }
+  })
+}
+
 function handleLogout(){
   fetch("/logout", {
     method: "DELETE",
   }).then(()=> setUser(null))
 }
 
-console.log(user===true)
+
+
+console.log(user)
+
 if (user!==null){
   return (
     <div>
@@ -38,7 +50,7 @@ if (user!==null){
       <header className="App-header">
         <h1>Town Board</h1>
         <h2>Log In</h2>
-        <LogIn onLogin={setUser}/>
+        <LogIn onLogin={handleLogin}/>
         <h2>Sign Up</h2>
        <SignUp onLogin={setUser}/>
       </header>
