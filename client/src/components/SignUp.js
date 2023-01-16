@@ -20,11 +20,12 @@ function handleSubmit(e){
         },
         body: JSON.stringify({
            user_name: username,
-           password: password,
+           password,
+           password_confirmation: passwordConfirmation
         }),
     })
     .then((response)=>response.json())
-    .then((user)=>setTestOutput(`${user.user_name}`))
+    .then(onLogin)
 }
 
 

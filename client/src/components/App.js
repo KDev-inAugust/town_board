@@ -34,7 +34,6 @@ function handleLogout(){
 }
 
 
-
 console.log(user)
 
 if (user!==null){
@@ -52,12 +51,10 @@ if (user!==null){
         <h2>Log In</h2>
         <LogIn onLogin={handleLogin}/>
         <h2>Sign Up</h2>
-       <SignUp onLogin={setUser}/>
+       <SignUp onLogin={handleLogin}/>
       </header>
     </div>
   );
-
-  
 }
 
 export default App;
