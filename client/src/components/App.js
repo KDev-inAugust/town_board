@@ -21,11 +21,11 @@ useEffect(()=>{
 function handleLogout(){
   fetch("/logout", {
     method: "DELETE",
-  }).then(()=> console.log("Logged Out"))
+  }).then(()=> setUser(null))
 }
 
-
-if (user){
+console.log(user===true)
+if (user!==null){
   return (
     <div>
       <h2>Welcome, {user.user_name}</h2>
