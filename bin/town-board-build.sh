@@ -10,6 +10,4 @@ cp -a client/build/. public/
 bundle install
 # bundle exec rake assets:precompile # These lines are commented out because we have an API only app
 # bundle exec rake assets:clean
-rails db:reset
 bundle exec rake db:migrate 
-bundle exec rake db:seed
