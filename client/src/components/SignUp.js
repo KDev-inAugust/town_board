@@ -24,8 +24,8 @@ function handleSubmit(e){
            password_confirmation: passwordConfirmation
         }),
     })
-    .then((response)=>response.json())
-    .then(onLogin)
+    .then((response) => response.json())
+    .then((user) => onLogin(user))
 }
 
 

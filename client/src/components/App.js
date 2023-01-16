@@ -18,6 +18,7 @@ useEffect(()=>{
   })
 },[])
 
+// this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 function handleLogin(){
   fetch("/me")
   .then((r)=> {
