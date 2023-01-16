@@ -11,7 +11,7 @@ class UsersController < ApplicationController
         if user 
             render json: user
         else
-            render json: { error: "Not authorized" }, status: :unauthorized
+            render json: { error: "That Username and Password combination is not recognized" }, status: :unauthorized
         end
     end
 

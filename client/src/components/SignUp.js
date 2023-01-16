@@ -7,9 +7,7 @@ function SignUp({onLogin}){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
-    const [testOutput, setTestOutput] = useState("")
-
-
+    const [signupError, setSignupError] = useState([])
 
 function handleSubmit(e){
     e.preventDefault();
@@ -24,15 +22,19 @@ function handleSubmit(e){
            password_confirmation: passwordConfirmation
         }),
     })
-    .then((response) => response.json())
-    .then((user) => onLogin(user))
+    .then((r) => {
+        if (r.ok) {
+        r.json().then((user) => onLogin(user))
+        }
+        else
+        r.json().then((error) => setSignupError(error.errors[0]) )
+    })
 }
 
 
 
 return(
     <div>
-        <h3>{testOutput}</h3>
     <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username </label>
         <input
@@ -59,6 +61,7 @@ return(
         />
         <button type="submit">submit</button>
     </form>
+    <p>{signupError}</p>
     </div>
     );
 }

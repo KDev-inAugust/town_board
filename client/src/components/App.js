@@ -7,6 +7,7 @@ import '../App.css';
 function App() {
 
 const [user, setUser] = useState(null);
+const [error, setError] =  useState([])
 
 useEffect(()=>{
 
@@ -25,6 +26,9 @@ function handleLogin(){
     if (r.ok) {
       r.json().then((user) => setUser(user));
     }
+    else
+    r.json().then((data) => setError(data.error))
+
   })
 }
 
@@ -51,6 +55,7 @@ if (user!==null){
         <h1>Town Board</h1>
         <h2>Log In</h2>
         <LogIn onLogin={handleLogin}/>
+        <p>{error}</p>
         <h2>Sign Up</h2>
        <SignUp onLogin={handleLogin}/>
       </header>
