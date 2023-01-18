@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+import PostsContainer from "./PostsContainer";
 import '../App.css';
 
 function App() {
@@ -46,6 +47,7 @@ if (user!==null){
     <div>
       <h2>Welcome, {user.user_name}</h2>
       <button onClick={handleLogout}>Logout</button>
+      <PostsContainer />
     </div>
   )
   }
