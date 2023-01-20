@@ -15,4 +15,16 @@ p1=Post.create(title: "post one", user_id: 1, body: "body of post one")
 p1=Post.create(title: "post two", user_id: 2, body: "body of post two")
 p1=Post.create(title: "post three", user_id: 3, body: "body of post three")
 
+t1=Topic.create(name: "Business")
+t2=Topic.create(name: "Political")
+t3=Topic.create(name: "Lesiure")
+
+pt1=PostTopic.create(topic_id: 1, post_id: 1)
+pt1=PostTopic.create(topic_id: 2, post_id: 1)
+pt1=PostTopic.create(topic_id: 3, post_id: 1)
+pt1=PostTopic.create(topic_id: 1, post_id: 2)
+pt1=PostTopic.create(topic_id: 2, post_id: 2)
+pt1=PostTopic.create(topic_id: 3, post_id: 2)
+pt1=PostTopic.create(topic_id: 1, post_id: 3)
+
 puts "done seeding"

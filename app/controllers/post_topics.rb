@@ -1,0 +1,2 @@
+class PostTopics < ApplicationController
+end

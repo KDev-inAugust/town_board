@@ -9,11 +9,11 @@ export default function Nav(){
              </button>
 
              <button>
-             <Link to={`PublicPosts`}>route one  </Link>
+             <Link to={`PublicPosts`}>Public Posts  </Link>
              </button>
              
              <button>
-             <Link to={`UserPosts`}>route three  </Link>
+             <Link to={`UserPosts`}>User Posts  </Link>
              </button>
             
             

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
     def index
         users=User.all
-        render json: users.to_json
+        render json: users, include: ['posts.topics']
     end
 
     def show

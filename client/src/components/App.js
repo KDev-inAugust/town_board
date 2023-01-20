@@ -25,7 +25,7 @@ function handleLogin(){
   fetch("/me")
   .then((r)=> {
     if (r.ok) {
-      r.json().then((user) => setUser(user));
+      r.json().then((user) => setUser(user))
     }
     else
     r.json().then((data) => setError(data.error))
@@ -47,7 +47,7 @@ if (user!==null){
     <div>
       <h2>Welcome, {user.user_name}</h2>
       <button onClick={handleLogout}>Logout</button>
-      <PostsContainer />
+      <PostsContainer user={user}/>
     </div>
   )
   }

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :post_topics
+  resources :topics
   resources :posts
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -12,5 +14,4 @@ Rails.application.routes.draw do
 
   # test routes
 
-  # get "/users", to: "users#index"
 end

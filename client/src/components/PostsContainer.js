@@ -8,6 +8,9 @@ import {
   } from "react-router-dom";
 
   
+
+
+export default function PostsContainer ({user}) {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -19,14 +22,14 @@ import {
           },
           {
             path: "/UserPosts",
-            element: <UserPosts />
+            element: <UserPosts user={user}/>
           }
       ] 
 },
 
   ]);
 
-export default function PostsContainer () {
+
     return (
         <div>
             <p>this is the posts container</p>
