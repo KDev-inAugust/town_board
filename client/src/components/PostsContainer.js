@@ -11,7 +11,9 @@ import {
 
   
 
-function PostsContainer ({user, publicPosts}) {
+function PostsContainer ({user, publicPosts, updatePostsArray}) {
+
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -19,7 +21,7 @@ function PostsContainer ({user, publicPosts}) {
       children: [
           {
             path: "/CreatePosts",
-            element: <CreatePost user={user}/>,
+            element: <CreatePost user={user} updatePostsArray={updatePostsArray}/>,
           },
           {
             path: "/PublicPosts",

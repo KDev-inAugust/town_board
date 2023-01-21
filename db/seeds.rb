@@ -18,6 +18,7 @@ p1=Post.create(title: "post three", user_id: 3, body: "body of post three")
 t1=Topic.create(name: "Business")
 t2=Topic.create(name: "Political")
 t3=Topic.create(name: "Lesiure")
+t4=Topic.create(name: "Other")
 
 pt1=PostTopic.create(topic_id: 1, post_id: 1)
 pt1=PostTopic.create(topic_id: 2, post_id: 1)

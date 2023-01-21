@@ -7,7 +7,18 @@ export default function UserPosts ({user}) {
                 user.posts.map((post)=>{
                     return(
                         <div>
-                        <li>{post.title}</li><p>{post.body}</p>
+                        <h2>{post.title}</h2>
+                        <p>{post.body}</p>
+                        <h3>topics</h3>
+                        <p>{post.topics.map((topic)=>{
+                            return(
+                                
+                                <p>{topic.name}</p>
+                            )
+                            
+                        })
+                        
+                        }</p>
                         <button>edit post</button>
                         </div>
                     )

@@ -1,7 +1,7 @@
 
 
 
-export default function PublicPosts ({publicPosts}) {
+function PublicPosts ({publicPosts}) {
     
     
     return (
@@ -25,3 +25,5 @@ export default function PublicPosts ({publicPosts}) {
         </div>
     )
 }
+
+export default PublicPosts

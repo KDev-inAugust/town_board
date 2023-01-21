@@ -11,6 +11,8 @@ const [user, setUser] = useState(null);
 const [error, setError] =  useState([]);
 const [publicPosts, setPublicPosts]=useState([])
 
+
+
 useEffect(()=>{
   fetch("/me")
   .then((r)=> {
@@ -25,6 +27,12 @@ useEffect(()=>{
     .then((r)=>r.json())
     .then((publicPosts)=>setPublicPosts(publicPosts))
 },[])
+
+
+function updatePostsArray(newpost){
+
+  setPublicPosts([...publicPosts, newpost])
+}
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 function handleLogin(){
@@ -53,7 +61,7 @@ if (user!==null){
     <div>
       <h2>Welcome, {user.user_name}</h2>
       <button onClick={handleLogout}>Logout</button>
-      <PostsContainer user={user} publicPosts={publicPosts}/>
+      <PostsContainer user={user} publicPosts={publicPosts} updatePostsArray={updatePostsArray}/>
     </div>
   )
   }
