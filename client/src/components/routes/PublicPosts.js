@@ -1,16 +1,9 @@
-import { useEffect } from "react"
-import { useState } from "react"
 
-export default function PublicPosts () {
+
+
+export default function PublicPosts ({publicPosts}) {
     
-    const [publicPosts, setPublicPosts]=useState([])
-
-    useEffect(()=>{
-        fetch("/posts")
-        .then((r)=>r.json())
-        .then((posts)=>setPublicPosts(posts))
-    },[])
-
+    
     return (
 
         <div>

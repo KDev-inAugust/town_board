@@ -1,4 +1,6 @@
+
 import Nav from "./Nav.js";
+import CreatePost from "./routes/CreatePost.js";
 import PublicPosts from "./routes/PublicPosts.js";
 import UserPosts from "./routes/UserPosts.js";
 
@@ -10,15 +12,20 @@ import {
   
 
 
-export default function PostsContainer ({user}) {
+
+export default function PostsContainer ({user, publicPosts}) {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Nav />, 
       children: [
-        {
+          {
+            path: "/CreatePosts",
+            element: <CreatePost />,
+          },
+          {
             path: "/PublicPosts",
-            element: <PublicPosts />,
+            element: <PublicPosts publicPosts={publicPosts} />,
           },
           {
             path: "/UserPosts",
@@ -28,7 +35,6 @@ export default function PostsContainer ({user}) {
 },
 
   ]);
-
 
     return (
         <div>

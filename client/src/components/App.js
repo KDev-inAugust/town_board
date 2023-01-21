@@ -8,16 +8,22 @@ import '../App.css';
 function App() {
 
 const [user, setUser] = useState(null);
-const [error, setError] =  useState([])
+const [error, setError] =  useState([]);
+const [publicPosts, setPublicPosts]=useState([])
 
 useEffect(()=>{
-
   fetch("/me")
   .then((r)=> {
     if (r.ok) {
       r.json().then((user) => setUser(user));
     }
   })
+},[])
+
+useEffect(()=>{
+    fetch("/posts")
+    .then((r)=>r.json())
+    .then((publicPosts)=>setPublicPosts(publicPosts))
 },[])
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
@@ -47,7 +53,7 @@ if (user!==null){
     <div>
       <h2>Welcome, {user.user_name}</h2>
       <button onClick={handleLogout}>Logout</button>
-      <PostsContainer user={user}/>
+      <PostsContainer user={user} publicPosts={publicPosts}/>
     </div>
   )
   }
