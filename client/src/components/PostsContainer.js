@@ -11,9 +11,7 @@ import {
 
   
 
-
-
-export default function PostsContainer ({user, publicPosts}) {
+function PostsContainer ({user, publicPosts}) {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -21,7 +19,7 @@ export default function PostsContainer ({user, publicPosts}) {
       children: [
           {
             path: "/CreatePosts",
-            element: <CreatePost />,
+            element: <CreatePost user={user}/>,
           },
           {
             path: "/PublicPosts",
@@ -43,3 +41,5 @@ export default function PostsContainer ({user, publicPosts}) {
         </div>
     )
 }
+
+export default PostsContainer

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-export default function CreatePost () {
+function CreatePost ({user}) {
 
 const [topics, setTopics] = useState([])
 const [selectedTopic, setSelectedTopic] = useState([])
@@ -48,3 +48,5 @@ useEffect(()=>{
         </div>
     )
 }
+
+export default CreatePost
