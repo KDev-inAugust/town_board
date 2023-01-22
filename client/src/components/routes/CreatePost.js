@@ -4,13 +4,37 @@ import { useEffect, useState } from "react"
 function CreatePost ({user,  updatePostsArray }) {
 
 const [topics, setTopics] = useState([])
-const [selectedTopic, setSelectedTopic] = useState(1)
+const [selectedTopic, setSelectedTopic] = useState(null)
+const [selectedTopicsArray, setSelectedtopicsArray] = useState([])
+const [selectedTopicsDisplay, setSelectedTopicsDisplay] = useState("")
 const [postTitle, setPostTile] = useState("")
 const [postBody, setPostBody] = useState("")
+
+
+useEffect(()=>{
+    fetch("/topics")
+    .then((r)=>r.json())
+    .then((data)=>{setTopics(data);
+    }
+    );
+},[])
 
 // ------ Create a New Post ----------
 function handleTopicSelect(e){
     setSelectedTopic(e.target.value)
+}
+
+function handleAddTopic(e){
+    // prevvent default because it is inside a form
+    e.preventDefault()
+    // console.log(selectedTopicsArray.includes(selectedTopic))
+    setSelectedTopic(e.target.value)
+    selectedTopicsArray.includes(selectedTopic) === false ? 
+    setSelectedtopicsArray([...selectedTopicsArray, e.target.value]) : console.log("there"); 
+    
+    // for the below function allow append child to add to the element so the topics names' accumulate
+  setSelectedTopicsDisplay(topics[e.target.value-1].name)
+
 }
 
 function handleSetPostTitle(e){
@@ -34,21 +58,16 @@ fetch("/posts",{
         user_id: user.id,
         title: postTitle,
         body: postBody,
-        topic_id: selectedTopic,
+        topic_id: selectedTopicsArray
     })
 })
 .then((r)=>r.json())
 .then((data)=>updatePostsArray(data))
 }
 
-useEffect(()=>{
-    fetch("/topics")
-    .then((r)=>r.json())
-    .then((data)=>{setTopics(data);
-        setSelectedTopic(data[0].id)
-    }
-    );
-},[])
+
+
+// console.log(topics[0].name)
 
     return(
         <div>
@@ -65,6 +84,7 @@ useEffect(()=>{
                 )
             })}
            </select>
+           <button onClick={handleAddTopic} value={selectedTopic}>add topic</button>
            <br/>
             Post Text: 
             <br/>
@@ -72,7 +92,10 @@ useEffect(()=>{
         </form>
         <button type="submit" form="post-form" value="Submit">Submit</button>
         <h4>Selected Topics: </h4>
-        <p>{selectedTopic}</p>
+        <p>{
+           selectedTopicsDisplay
+        }
+        </p>
         </div>
     )
 }
