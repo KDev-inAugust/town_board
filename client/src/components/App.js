@@ -20,7 +20,7 @@ useEffect(()=>{
       r.json().then((user) => setUser(user));
     }
   })
-},[])
+},[publicPosts])
 
 useEffect(()=>{
     fetch("/posts")
@@ -30,9 +30,10 @@ useEffect(()=>{
 
 
 function updatePostsArray(newpost){
-
   setPublicPosts([...publicPosts, newpost])
 }
+
+
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 function handleLogin(){

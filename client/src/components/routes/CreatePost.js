@@ -8,7 +8,6 @@ const [selectedTopic, setSelectedTopic] = useState(1)
 const [postTitle, setPostTile] = useState("")
 const [postBody, setPostBody] = useState("")
 
-
 // ------ Create a New Post ----------
 function handleTopicSelect(e){
     setSelectedTopic(e.target.value)
@@ -46,7 +45,7 @@ useEffect(()=>{
     fetch("/topics")
     .then((r)=>r.json())
     .then((data)=>{setTopics(data);
-        setSelectedTopic(data[0].name)
+        setSelectedTopic(data[0].id)
     }
     );
 },[])
@@ -60,6 +59,7 @@ useEffect(()=>{
            Topic: 
            <select onChange={handleTopicSelect}> 
             {topics.map((topic)=>{
+
                 return(
                     <option value={topic.id}>{topic.name}</option>
                 )
@@ -71,6 +71,8 @@ useEffect(()=>{
             <textarea type="text" onChange={handleSetPostBody}/>
         </form>
         <button type="submit" form="post-form" value="Submit">Submit</button>
+        <h4>Selected Topics: </h4>
+        <p>{selectedTopic}</p>
         </div>
     )
 }
