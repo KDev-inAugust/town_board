@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { createElement, useEffect, useState } from "react"
 
 
 function CreatePost ({user,  updatePostsArray }) {
@@ -6,7 +6,7 @@ function CreatePost ({user,  updatePostsArray }) {
 const [topics, setTopics] = useState([])
 const [selectedTopic, setSelectedTopic] = useState(null)
 const [selectedTopicsArray, setSelectedtopicsArray] = useState([])
-const [selectedTopicsDisplay, setSelectedTopicsDisplay] = useState("")
+const [selectedTopicsDisplay, setSelectedTopicsDisplay] = useState([])
 const [postTitle, setPostTile] = useState("")
 const [postBody, setPostBody] = useState("")
 
@@ -25,15 +25,24 @@ function handleTopicSelect(e){
 }
 
 function handleAddTopic(e){
-    // prevvent default because it is inside a form
+   const selectedTopicsElement=document.getElementById("selected_topics")
+   console.log(selectedTopicsElement.innerText)
+    // prevent default because it is inside a form
     e.preventDefault()
-    // console.log(selectedTopicsArray.includes(selectedTopic))
+
     setSelectedTopic(e.target.value)
-    selectedTopicsArray.includes(selectedTopic) === false ? 
-    setSelectedtopicsArray([...selectedTopicsArray, e.target.value]) : console.log("there"); 
+    // selectedTopicsArray.includes(selectedTopic) === false ? 
+    // setSelectedtopicsArray([...selectedTopicsArray, e.target.value]) : console.log("there"); 
     
     // for the below function allow append child to add to the element so the topics names' accumulate
-  setSelectedTopicsDisplay(topics[e.target.value-1].name)
+    if (selectedTopicsArray.includes(selectedTopic) === false){
+        setSelectedtopicsArray([...selectedTopicsArray, e.target.value]);
+        setSelectedTopicsDisplay([...selectedTopicsDisplay, topics[e.target.value-1].name])
+    }
+    else console.log("there")
+
+
+  
 
 }
 
@@ -65,9 +74,7 @@ fetch("/posts",{
 .then((data)=>updatePostsArray(data))
 }
 
-
-
-// console.log(topics[0].name)
+    
 
     return(
         <div>
@@ -77,6 +84,7 @@ fetch("/posts",{
            <br/>
            Topic: 
            <select onChange={handleTopicSelect}> 
+                <option value={null}>select a topic</option>
             {topics.map((topic)=>{
 
                 return(
@@ -91,9 +99,15 @@ fetch("/posts",{
             <textarea type="text" onChange={handleSetPostBody}/>
         </form>
         <button type="submit" form="post-form" value="Submit">Submit</button>
-        <h4>Selected Topics: </h4>
+        <h4 id="selected_topics">Selected Topics: </h4>
         <p>{
-           selectedTopicsDisplay
+           selectedTopicsDisplay.map((topic)=>{
+            const p=document.createElement('p')
+            return(
+                
+                p.innerText=`${topic}: `
+                )
+           })
         }
         </p>
         </div>
