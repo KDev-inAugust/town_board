@@ -1,9 +1,9 @@
-import { createElement, useEffect, useState } from "react"
+import { useState } from "react"
 
 
-function CreatePost ({user,  updatePostsArray }) {
+function CreatePost ({user,  topics, updatePostsArray }) {
 
-const [topics, setTopics] = useState([])
+
 const [selectedTopic, setSelectedTopic] = useState(null)
 const [selectedTopicsArray, setSelectedtopicsArray] = useState([])
 const [selectedTopicsDisplay, setSelectedTopicsDisplay] = useState([])
@@ -11,13 +11,7 @@ const [postTitle, setPostTile] = useState("")
 const [postBody, setPostBody] = useState("")
 
 
-useEffect(()=>{
-    fetch("/topics")
-    .then((r)=>r.json())
-    .then((data)=>{setTopics(data);
-    }
-    );
-},[])
+
 
 // ------ Create a New Post ----------
 function handleTopicSelect(e){
@@ -31,19 +25,12 @@ function handleAddTopic(e){
     e.preventDefault()
 
     setSelectedTopic(e.target.value)
-    // selectedTopicsArray.includes(selectedTopic) === false ? 
-    // setSelectedtopicsArray([...selectedTopicsArray, e.target.value]) : console.log("there"); 
-    
     // for the below function allow append child to add to the element so the topics names' accumulate
     if (selectedTopicsArray.includes(selectedTopic) === false){
         setSelectedtopicsArray([...selectedTopicsArray, e.target.value]);
         setSelectedTopicsDisplay([...selectedTopicsDisplay, topics[e.target.value-1].name])
     }
     else console.log("there")
-
-
-  
-
 }
 
 function handleSetPostTitle(e){
@@ -86,7 +73,6 @@ fetch("/posts",{
            <select onChange={handleTopicSelect}> 
                 <option value={null}>select a topic</option>
             {topics.map((topic)=>{
-
                 return(
                     <option value={topic.id}>{topic.name}</option>
                 )
@@ -104,7 +90,6 @@ fetch("/posts",{
            selectedTopicsDisplay.map((topic)=>{
             const p=document.createElement('p')
             return(
-                
                 p.innerText=`${topic}: `
                 )
            })

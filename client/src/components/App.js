@@ -28,12 +28,25 @@ useEffect(()=>{
     .then((publicPosts)=>setPublicPosts(publicPosts))
 },[])
 
-
+// this function updates the posts upon creation of a new post
 function updatePostsArray(newpost){
   setPublicPosts([...publicPosts, newpost])
 }
 
 
+// this function updates the post upon the updating of a current post
+console.log(publicPosts)
+function updatePostsOnUpdate(updatedPost){
+  let newPostsArray = publicPosts.map((post)=>{
+    if (post.id===updatedPost.id) {
+      return updatedPost
+    }
+    else return post
+  })
+  
+  setPublicPosts(newPostsArray.sort((a, b)=> a.id - b.id))
+
+  }
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 function handleLogin(){
@@ -44,8 +57,7 @@ function handleLogin(){
     }
     else
     r.json().then((data) => setError(data.error))
-
-  })
+    })
 }
 
 function handleLogout(){
@@ -54,7 +66,6 @@ function handleLogout(){
   }).then(()=> setUser(null))
 }
 
-
 console.log(user)
 
 if (user!==null){
@@ -62,7 +73,11 @@ if (user!==null){
     <div>
       <h2>Welcome, {user.user_name}</h2>
       <button onClick={handleLogout}>Logout</button>
-      <PostsContainer user={user} publicPosts={publicPosts} updatePostsArray={updatePostsArray}/>
+      <PostsContainer 
+      user={user} 
+      publicPosts={publicPosts} 
+      updatePostsArray={updatePostsArray} 
+      updatePostsOnUpdate={updatePostsOnUpdate}/>
     </div>
   )
   }

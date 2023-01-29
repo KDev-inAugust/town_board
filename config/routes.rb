@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :post_topics
   resources :topics
-  resources :posts
+  resources :posts 
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   get "/me", to: "users#show"
   delete "/logout", to: "sessions#destroy"
-
+  # update "/posts", to: "posts#update"
   # test routes
 
 end

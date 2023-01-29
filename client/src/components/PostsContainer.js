@@ -1,4 +1,5 @@
-
+import { useState } from "react";
+import { useEffect } from "react";
 import Nav from "./Nav.js";
 import CreatePost from "./routes/CreatePost.js";
 import PublicPosts from "./routes/PublicPosts.js";
@@ -9,9 +10,19 @@ import {
     RouterProvider,
   } from "react-router-dom";
 
-  
+ 
 
-function PostsContainer ({user, publicPosts, updatePostsArray}) {
+function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpdate}) {
+
+  const [topics, setTopics] = useState([])
+
+  useEffect(()=>{
+    fetch("/topics")
+    .then((r)=>r.json())
+    .then((data)=>{setTopics(data);
+    }
+    );
+},[])
 
 
   const router = createBrowserRouter([
@@ -21,7 +32,7 @@ function PostsContainer ({user, publicPosts, updatePostsArray}) {
       children: [
           {
             path: "/CreatePosts",
-            element: <CreatePost user={user} updatePostsArray={updatePostsArray}/>,
+            element: <CreatePost user={user} topics={topics} updatePostsArray={updatePostsArray}/>,
           },
           {
             path: "/PublicPosts",
@@ -29,7 +40,7 @@ function PostsContainer ({user, publicPosts, updatePostsArray}) {
           },
           {
             path: "/UserPosts",
-            element: <UserPosts user={user}/>
+            element: <UserPosts user={user} topics={topics} updatePostsOnUpdate={updatePostsOnUpdate}/>
           }
       ] 
 },
