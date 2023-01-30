@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
     def create 
         post=Post.create(post_params)
-         params[:topic_id].map { |id| post.post_topics.create(topic_id: id)}
+        params[:topic_id].map { |id| post.post_topics.create(topic_id: id)}
         render json: post
     end
 
