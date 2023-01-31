@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   get "/me", to: "users#show"
   delete "/logout", to: "sessions#destroy"
-  # update "/posts", to: "posts#update"
+  delete "/post_topics", to: "post_topics#destroy"
   # test routes
 
 end

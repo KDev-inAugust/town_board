@@ -3,7 +3,7 @@
 
 function PublicPosts ({publicPosts}) {
     
-    
+    console.log(publicPosts)
     return (
 
         <div>

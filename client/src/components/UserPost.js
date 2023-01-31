@@ -7,6 +7,9 @@ function UserPost ({post, topics, updatePostsOnUpdate}) {
     const [postTitle, setPostTile] = useState(post.title)
     const [postBody, setPostBody] = useState(post.body)
     const [addRemoveButton, setAddRemoveButton] = useState(null)
+    const [selectedTopicId, setSelectedTopicId] = useState(null)
+    const [removeTopicCue, setRemoveTopicCue] = useState([])
+
     // the functions below set needed state for the post update
     function handleSetPostTitle(e){
         setPostTile(e.target.value)
@@ -20,23 +23,22 @@ function UserPost ({post, topics, updatePostsOnUpdate}) {
 // provides an 'add' or 'remove' option based on the response. 
 
     function addRemoveQuery(e){
-        console.log(post.topics, parseInt(e.target.value))
+        e.preventDefault()
+        setSelectedTopicId(parseInt(e.target.value))
         // post topics includes selected? (target value is topic id)
         let arr=[];
-       post.topics.map(post=>arr.push(post.id))
-       console.log(arr.includes(parseInt(e.target.value)))
-       arr.includes(parseInt(e.target.value))===true? setAddRemoveButton(false) : setAddRemoveButton(true)
-   
+        post.topics.map(post=>arr.push(post.id))
+        arr.includes(parseInt(e.target.value))===true? setAddRemoveButton(false) : setAddRemoveButton(true)
     }
 
 // this function sets state to show the edit fields
     function handleShowEdit(){
         setShowEdit(!showEdit)
-        console.log(showEdit)
+        setRemoveTopicCue([])
     }
 // this function commits changes to the post 
     function commitChanges(e){
-        e.preventDefault()
+        removeTopic(e)
         let id = e.target.value
         fetch(`/posts/${id}`,{
             method: "PATCH",
@@ -51,8 +53,35 @@ function UserPost ({post, topics, updatePostsOnUpdate}) {
         .then((r)=>r.json())
         .then((post)=>updatePostsOnUpdate(post))
         setShowEdit(!showEdit)
+        
     }
 
+// cue topics for removal
+function removeCue(e){
+    e.preventDefault()
+    removeTopicCue.includes(selectedTopicId)===false?
+    setRemoveTopicCue([...removeTopicCue,selectedTopicId]) : console.log("already in the cue");
+}
+
+// add or remove topics from the current post while editing
+    function removeTopic (e){
+        e.preventDefault();
+        fetch(`/post_topics`,{
+            method: "DELETE",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                post_id: post.id,
+                topic_array: removeTopicCue
+            })
+        })
+    }
+
+    function addTopic (e){
+        e.preventDefault();
+        console.log("add topic");
+    }
 
     return (
         <div>
@@ -82,7 +111,15 @@ function UserPost ({post, topics, updatePostsOnUpdate}) {
                         )
                         })}
                     </select>
-                { addRemoveButton==false? <button>remove topic from post</button> : <button>add topic to post</button>}
+                { addRemoveButton===false? <button onClick={removeCue}>remove topic from post</button> : <button onClick={addTopic}>add topic to post</button> }
+
+                { removeTopicCue.map((topicID)=>{
+                    const p=document.createElement('p');
+                    return(
+                    p.innerText=`${topics[topicID-1].name}, `
+                    )})
+                }
+
             </form>
             <button type="submit" form="post-update" value={post.id} onClick={commitChanges}>save edit</button>
             <button onClick={handleShowEdit}>cancel changes</button>
