@@ -17,6 +17,12 @@ class PostsController < ApplicationController
         post.update(post_params)
         render json: post
     end
+
+    def destroy
+        post=Post.find_by(id: params[:id])
+        post.destroy
+        render json: post
+    end
    
     private
 

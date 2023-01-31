@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function UserPost ({post, topics, updatePostsOnUpdate}) {
+function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
 
 
     const [showEdit, setShowEdit] = useState(false)
@@ -83,6 +83,12 @@ function removeCue(e){
         console.log("add topic");
     }
 
+    function handleDelete(e){
+        e.preventDefault()
+        console.log('delete triggered')
+        deletePost(post.id)
+    }
+
     return (
         <div>
         <h2>{post.title}</h2>
@@ -123,6 +129,8 @@ function removeCue(e){
             </form>
             <button type="submit" form="post-update" value={post.id} onClick={commitChanges}>save edit</button>
             <button onClick={handleShowEdit}>cancel changes</button>
+            <br/>
+            <button onClick={handleDelete}>Delete Post</button>
         </div>
         }
     </div>

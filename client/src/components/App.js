@@ -43,10 +43,22 @@ function updatePostsOnUpdate(updatedPost){
     }
     else return post
   })
-  
   setPublicPosts(newPostsArray.sort((a, b)=> a.id - b.id))
-
   }
+
+// delete a post
+function deletePost(id){
+  console.log(id, "yep")
+  fetch(`/posts/${id}`, {
+    method: "DELETE",
+  }).then(r=>r.json()).then(data=>console.log(data));
+  
+  let filteredArray=publicPosts.filter((post)=>{
+    return post.id!==id
+  });
+  
+  setPublicPosts(filteredArray)
+}
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 function handleLogin(){
@@ -77,7 +89,8 @@ if (user!==null){
       user={user} 
       publicPosts={publicPosts} 
       updatePostsArray={updatePostsArray} 
-      updatePostsOnUpdate={updatePostsOnUpdate}/>
+      updatePostsOnUpdate={updatePostsOnUpdate}
+      deletePost={deletePost}/>
     </div>
   )
   }

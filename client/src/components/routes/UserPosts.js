@@ -1,7 +1,7 @@
 import { useState } from "react"
 import UserPost from "../UserPost"
 
-export default function UserPosts ({user, topics, updatePostsOnUpdate}) {
+export default function UserPosts ({user, topics, updatePostsOnUpdate, deletePost}) {
     // the user and updatePostsOnUpdate props are coming all the way down from the App component
 
 
@@ -11,7 +11,7 @@ export default function UserPosts ({user, topics, updatePostsOnUpdate}) {
             <div>{
                 user.posts.map((post)=>{ 
                     return(
-                       <UserPost post={post} topics={topics} updatePostsOnUpdate={updatePostsOnUpdate}/>
+                       <UserPost post={post} topics={topics} updatePostsOnUpdate={updatePostsOnUpdate} deletePost={deletePost}/>
                     )
                 })
                 }

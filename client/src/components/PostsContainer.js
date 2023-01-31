@@ -12,7 +12,7 @@ import {
 
  
 
-function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpdate}) {
+function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpdate, deletePost}) {
 
   const [topics, setTopics] = useState([])
 
@@ -40,7 +40,7 @@ function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpda
           },
           {
             path: "/UserPosts",
-            element: <UserPosts user={user} topics={topics} updatePostsOnUpdate={updatePostsOnUpdate}/>
+            element: <UserPosts user={user} topics={topics} updatePostsOnUpdate={updatePostsOnUpdate} deletePost={deletePost}/>
           }
       ] 
 },
