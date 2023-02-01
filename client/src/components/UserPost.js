@@ -9,6 +9,7 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
     const [addRemoveButton, setAddRemoveButton] = useState(null)
     const [selectedTopicId, setSelectedTopicId] = useState(null)
     const [removeTopicCue, setRemoveTopicCue] = useState([])
+    const [addTopicCue, setAddTopicCue] = useState([])
 
     // the functions below set needed state for the post update
     function handleSetPostTitle(e){
@@ -35,10 +36,12 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
     function handleShowEdit(){
         setShowEdit(!showEdit)
         setRemoveTopicCue([])
+        setAddTopicCue([])
     }
 // this function commits changes to the post 
     function commitChanges(e){
         removeTopic(e)
+        addTopic(e)
         let id = e.target.value
         fetch(`/posts/${id}`,{
             method: "PATCH",
@@ -63,7 +66,14 @@ function removeCue(e){
     setRemoveTopicCue([...removeTopicCue,selectedTopicId]) : console.log("already in the cue");
 }
 
-// add or remove topics from the current post while editing
+// cue topics for addition
+function addCue(e){
+    e.preventDefault()
+    addTopicCue.includes(selectedTopicId)===false?
+    setAddTopicCue([...addTopicCue, selectedTopicId]) : console.log("already in the cue")
+}
+
+// remove topics from the current post while editing
     function removeTopic (e){
         e.preventDefault();
         fetch(`/post_topics`,{
@@ -78,14 +88,24 @@ function removeCue(e){
         })
     }
 
+// add topics to the current post while editing
     function addTopic (e){
         e.preventDefault();
-        console.log("add topic");
+        console.log(`add topic - ${selectedTopicId}`);
+        fetch('/add_to_post',{
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                post_id: post.id,
+                topic_array: addTopicCue
+            })
+        }).then(r=>r.json()).then(data=>console.log(data))
     }
 
     function handleDelete(e){
         e.preventDefault()
-        console.log('delete triggered')
         deletePost(post.id)
     }
 
@@ -117,12 +137,18 @@ function removeCue(e){
                         )
                         })}
                     </select>
-                { addRemoveButton===false? <button onClick={removeCue}>remove topic from post</button> : <button onClick={addTopic}>add topic to post</button> }
+                { addRemoveButton===false? <button onClick={removeCue}>remove topic from post</button> : <button onClick={addCue}>add topic to post</button> }
 
                 { removeTopicCue.map((topicID)=>{
                     const p=document.createElement('p');
                     return(
-                    p.innerText=`${topics[topicID-1].name}, `
+                    p.innerText=`remove: ${topics[topicID-1].name}, `
+                    )})
+                }
+                { addTopicCue.map((topicID)=>{
+                    const p=document.createElement('p');
+                    return(
+                    p.innerText=`add: ${topics[topicID-1].name}, `
                     )})
                 }
 

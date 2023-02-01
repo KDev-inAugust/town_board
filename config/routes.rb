@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   delete "/logout", to: "sessions#destroy"
   delete "/post_topics", to: "post_topics#destroy"
+  post "/add_to_post", to: "post_topics#add_to_post"
   # test routes
 
 end

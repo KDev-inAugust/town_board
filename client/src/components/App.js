@@ -11,8 +11,6 @@ const [user, setUser] = useState(null);
 const [error, setError] =  useState([]);
 const [publicPosts, setPublicPosts]=useState([])
 
-
-
 useEffect(()=>{
   fetch("/me")
   .then((r)=> {
@@ -33,9 +31,8 @@ function updatePostsArray(newpost){
   setPublicPosts([...publicPosts, newpost])
 }
 
-
 // this function updates the post upon the updating of a current post
-console.log(publicPosts)
+
 function updatePostsOnUpdate(updatedPost){
   let newPostsArray = publicPosts.map((post)=>{
     if (post.id===updatedPost.id) {
@@ -56,7 +53,7 @@ function deletePost(id){
   let filteredArray=publicPosts.filter((post)=>{
     return post.id!==id
   });
-  
+
   setPublicPosts(filteredArray)
 }
 
@@ -78,7 +75,6 @@ function handleLogout(){
   }).then(()=> setUser(null))
 }
 
-console.log(user)
 
 if (user!==null){
   return (
