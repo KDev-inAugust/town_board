@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 
-function CreatePost ({user,  topics, updatePostsArray }) {
+function CreatePost ({user,  topics, updatePostsArray, updateTopicsArray }) {
 
 
 const [selectedTopic, setSelectedTopic] = useState(null)
@@ -9,6 +9,7 @@ const [selectedTopicsArray, setSelectedtopicsArray] = useState([])
 const [selectedTopicsDisplay, setSelectedTopicsDisplay] = useState([])
 const [postTitle, setPostTile] = useState("")
 const [postBody, setPostBody] = useState("")
+const [newTopic, setNewTopic] = useState("")
 
 
 
@@ -41,27 +42,44 @@ function handleSetPostBody(e){
     setPostBody(e.target.value)
 }
 
-function handleSubmit(e){
-    e.preventDefault()
-console.log("handle submit triggered")
-
-fetch("/posts",{
-    method: "POST",
-    headers: {
-        "Content-Type":"application/json",
-    },
-    body: JSON.stringify({
-        user_id: user.id,
-        title: postTitle,
-        body: postBody,
-        topic_id: selectedTopicsArray
-    })
-})
-.then((r)=>r.json())
-.then((data)=>updatePostsArray(data))
+function handleSetNewTopic(e){
+    setNewTopic(e.target.value)
 }
 
-    
+// POST a post to the db and update the post array
+function handleSubmit(e){
+    e.preventDefault()
+    fetch("/posts",{
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify({
+            user_id: user.id,
+            title: postTitle,
+            body: postBody,
+            topic_id: selectedTopicsArray
+        })
+    })
+    .then((r)=>r.json())
+    .then((data)=>updatePostsArray(data))
+}
+
+// POST a topic to the db and update the topics array
+function handleCreateTopic(){
+    console.log("create topic triggered")
+    fetch("/topics",{
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify({
+            name: newTopic
+        })
+    })
+    .then(r=>r.json())
+    .then(topic=>updateTopicsArray(topic))
+}
 
     return(
         <div>
@@ -95,6 +113,9 @@ fetch("/posts",{
            })
         }
         </p>
+            <h2>Create Topic</h2>
+            <input type="text" onChange={handleSetNewTopic}></input>
+            <button onClick={handleCreateTopic}>add topic</button>
         </div>
     )
 }

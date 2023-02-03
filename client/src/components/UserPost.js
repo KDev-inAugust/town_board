@@ -99,7 +99,7 @@ updateSequence()
                         })
                     })
                     .then((r)=>r.json())
-                    .then((data)=>{updatePostsOnUpdate(data); console.log(data)})
+                    .then((data)=>{updatePostsOnUpdate(data)})
                     setShowEdit(false)
                 }
             })

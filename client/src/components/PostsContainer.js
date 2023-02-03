@@ -24,6 +24,10 @@ function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpda
     );
 },[])
 
+// add a topic
+function updateTopicsArray(topic){
+  setTopics([...topics, topic])
+}
 
   const router = createBrowserRouter([
     {
@@ -32,7 +36,12 @@ function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpda
       children: [
           {
             path: "/CreatePosts",
-            element: <CreatePost user={user} topics={topics} updatePostsArray={updatePostsArray}/>,
+            element: <CreatePost 
+            user={user} 
+            topics={topics} 
+            updatePostsArray={updatePostsArray}
+            updateTopicsArray={updateTopicsArray}
+            />,
           },
           {
             path: "/PublicPosts",

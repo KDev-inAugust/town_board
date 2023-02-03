@@ -9,7 +9,8 @@ function App() {
 
 const [user, setUser] = useState(null);
 const [error, setError] =  useState([]);
-const [publicPosts, setPublicPosts]=useState([])
+const [publicPosts, setPublicPosts] = useState([])
+
 
 useEffect(()=>{
   fetch("/me")
@@ -30,9 +31,7 @@ useEffect(()=>{
 function updatePostsArray(newpost){
   setPublicPosts([...publicPosts, newpost])
 }
-
 // this function updates the post upon the updating of a current post
-
 function updatePostsOnUpdate(updatedPost){
   let newPostsArray = publicPosts.map((post)=>{
     if (post.id===updatedPost.id) {
@@ -43,18 +42,18 @@ function updatePostsOnUpdate(updatedPost){
   setPublicPosts(newPostsArray.sort((a, b)=> a.id - b.id))
   }
 
+
+
 // delete a post
 function deletePost(id){
+  let filteredArray=publicPosts.filter((post)=>{
+    return post.id!==id;})
+    
+    console.log(filteredArray);
   console.log(id, "yep")
   fetch(`/posts/${id}`, {
     method: "DELETE",
-  }).then(r=>r.json()).then(data=>console.log(data));
-  
-  let filteredArray=publicPosts.filter((post)=>{
-    return post.id!==id
-  });
-
-  setPublicPosts(filteredArray)
+  }).then((r)=>{if(r.ok){setPublicPosts(filteredArray)}})
 }
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
