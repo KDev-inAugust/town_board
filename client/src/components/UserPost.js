@@ -38,26 +38,7 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
         setRemoveTopicCue([])
         setAddTopicCue([])
     }
-// this function commits changes to the post 
-    function commitChanges(e){
-        removeTopic(e)
-        addTopic(e)
-        let id = e.target.value
-        fetch(`/posts/${id}`,{
-            method: "PATCH",
-            headers: {
-                "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                title: postTitle,
-                body: postBody
-            })
-        })
-        .then((r)=>r.json())
-        .then((post)=>updatePostsOnUpdate(post))
-        setShowEdit(!showEdit)
-        
-    }
+
 
 // cue topics for removal
 function removeCue(e){
@@ -73,10 +54,20 @@ function addCue(e){
     setAddTopicCue([...addTopicCue, selectedTopicId]) : console.log("already in the cue")
 }
 
+// ---------- this function commits changes to the post in sequence
+function commitChanges (e){
+    e.preventDefault()
+console.log("commit changes triggered")
+updateSequence()
+}
+
+// update title and body text
+
+
 // remove topics from the current post while editing
-    function removeTopic (e){
-        e.preventDefault();
-        fetch(`/post_topics`,{
+   
+  function updateSequence(){ 
+     fetch(`/post_topics`,{
             method: "DELETE",
             headers: {
                 "Content-Type":"application/json",
@@ -85,28 +76,40 @@ function addCue(e){
                 post_id: post.id,
                 topic_array: removeTopicCue
             })
-        })
-    }
+        }).then((res)=>{ if (res.ok) {
+            fetch('/add_to_post',{
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                },
+                body: JSON.stringify({
+                    post_id: post.id,
+                    topic_array: addTopicCue
+                })
+            }).then((res)=>{
+                if (res.ok){
+                    fetch(`/posts/${post.id}`,{
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type":"application/json",
+                        },
+                        body: JSON.stringify({
+                            title: postTitle,
+                            body: postBody
+                        })
+                    })
+                    .then((r)=>r.json())
+                    .then((data)=>{updatePostsOnUpdate(data); console.log(data)})
+                    setShowEdit(false)
+                }
+            })
+        } })}
 
 // add topics to the current post while editing
-    function addTopic (e){
-        e.preventDefault();
-        console.log(`add topic - ${selectedTopicId}`);
-        fetch('/add_to_post',{
-            method: "POST",
-            headers: {
-                "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                post_id: post.id,
-                topic_array: addTopicCue
-            })
-        }).then(r=>r.json()).then(data=>console.log(data))
-    }
 
     function handleDelete(e){
         e.preventDefault()
-        deletePost(post.id)
+        deletePost(post.id);
     }
 
     return (

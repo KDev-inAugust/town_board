@@ -1,4 +1,3 @@
-import { useState } from "react"
 import UserPost from "../UserPost"
 
 export default function UserPosts ({user, topics, updatePostsOnUpdate, deletePost}) {
@@ -19,3 +18,4 @@ export default function UserPosts ({user, topics, updatePostsOnUpdate, deletePos
         </div>
     )
 }
+
