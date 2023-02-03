@@ -5,7 +5,6 @@ export default function Nav(){
 
     return (
         <div>
-             <h1>Navigation</h1>
              <button>
              <Link to={`CreatePosts`}>Create Post</Link>
              </button>

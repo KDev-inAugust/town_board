@@ -58,7 +58,6 @@ function updateTopicsArray(topic){
 
     return (
         <div>
-            <p>this is the posts container</p>
             <RouterProvider router={router} />
         </div>
     )

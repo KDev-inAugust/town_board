@@ -46,6 +46,24 @@ function handleSetNewTopic(e){
     setNewTopic(e.target.value)
 }
 
+function confirmSubmitToUser(){
+    let userFeedbackElement=document.getElementById("user-feedback-container");
+    let p=document.createElement('p');
+    p.id="user-feedback";
+    userFeedbackElement.appendChild(p).innerText=`"${postTitle}" - post successful`;
+    setPostBody("")
+    setPostTile("")
+    setSelectedTopicsDisplay([])
+}
+
+function confirmAddTopicToUser(){
+    let userFeedbackElement=document.getElementById("user-feedback-container");
+    let p=document.createElement('p');
+    p.id="user-feedback";
+    userFeedbackElement.appendChild(p).innerText=`"${newTopic}" - post successful`;
+    setNewTopic("");
+}
+
 // POST a post to the db and update the post array
 function handleSubmit(e){
     e.preventDefault()
@@ -63,6 +81,7 @@ function handleSubmit(e){
     })
     .then((r)=>r.json())
     .then((data)=>updatePostsArray(data))
+    .then(confirmSubmitToUser())
 }
 
 // POST a topic to the db and update the topics array
@@ -79,13 +98,15 @@ function handleCreateTopic(){
     })
     .then(r=>r.json())
     .then(topic=>updateTopicsArray(topic))
+    .then(confirmAddTopicToUser)
 }
 
     return(
         <div>
         <h2>Create Post</h2>
+        <p id="user-feedback-container"></p>
         <form id="post-form" onSubmit={handleSubmit}>
-           Title: <input type='text' onChange={handleSetPostTitle}/>
+           Title: <input type='text' onChange={handleSetPostTitle} value={postTitle}/>
            <br/>
            Topic: 
            <select onChange={handleTopicSelect}> 
@@ -100,7 +121,7 @@ function handleCreateTopic(){
            <br/>
             Post Text: 
             <br/>
-            <textarea type="text" onChange={handleSetPostBody}/>
+            <textarea type="text" onChange={handleSetPostBody} value={postBody}/>
         </form>
         <button type="submit" form="post-form" value="Submit">Submit</button>
         <h4 id="selected_topics">Selected Topics: </h4>
@@ -114,7 +135,7 @@ function handleCreateTopic(){
         }
         </p>
             <h2>Create Topic</h2>
-            <input type="text" onChange={handleSetNewTopic}></input>
+            <input type="text" onChange={handleSetNewTopic} value={newTopic}></input>
             <button onClick={handleCreateTopic}>add topic</button>
         </div>
     )
