@@ -77,7 +77,8 @@ function handleLogout(){
 
 if (user!==null){
   return (
-    <div>
+    <div className="App">
+      <header className="App-header">
       <h2>Welcome, {user.user_name}</h2>
       <button onClick={handleLogout}>Logout</button>
       <PostsContainer 
@@ -86,6 +87,7 @@ if (user!==null){
       updatePostsArray={updatePostsArray} 
       updatePostsOnUpdate={updatePostsOnUpdate}
       deletePost={deletePost}/>
+      </header>
     </div>
   )
   }
