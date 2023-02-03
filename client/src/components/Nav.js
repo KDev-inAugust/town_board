@@ -17,8 +17,6 @@ export default function Nav(){
              <button>
              <Link to={`UserPosts`}>User Posts  </Link>
              </button>
-            
-            
              <div>
                 <Outlet />
              </div>
