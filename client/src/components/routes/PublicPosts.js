@@ -15,7 +15,7 @@ function PublicPosts ({publicPosts}) {
                         <h3>{post.title}</h3>
                         <p>{post.body}</p>
                         <p>{post.topics.map((topic)=>{
-                            return(<li>{topic.name}</li>)
+                            return(<li key={topic.id}>{topic.name}</li>)
                         }
                         )}</p>
                         </div>

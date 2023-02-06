@@ -43,7 +43,6 @@ function updatePostsOnUpdate(updatedPost){
   }
 
 
-
 // delete a post
 function deletePost(id){
   let filteredArray=publicPosts.filter((post)=>{
@@ -53,7 +52,8 @@ function deletePost(id){
   console.log(id, "yep")
   fetch(`/posts/${id}`, {
     method: "DELETE",
-  }).then((r)=>{if(r.ok){setPublicPosts(filteredArray)}})
+  }).then((r)=>{if(r.ok){setPublicPosts(filteredArray)
+  }})
 }
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error

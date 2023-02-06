@@ -2,9 +2,10 @@ import { useState } from "react"
 
 function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
 
+    console.log(post.id)
 
     const [showEdit, setShowEdit] = useState(false)
-    const [postTitle, setPostTile] = useState(post.title)
+    const [postTitle, setPostTitle] = useState(post.title)
     const [postBody, setPostBody] = useState(post.body)
     const [addRemoveButton, setAddRemoveButton] = useState(null)
     const [selectedTopicId, setSelectedTopicId] = useState(null)
@@ -13,7 +14,7 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
 
     // the functions below set needed state for the post update
     function handleSetPostTitle(e){
-        setPostTile(e.target.value)
+        setPostTitle(e.target.value)
     }
     
     function handleSetPostBody(e){
@@ -34,6 +35,8 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
 
 // this function sets state to show the edit fields
     function handleShowEdit(){
+        setPostTitle(post.title)
+        setPostBody(post.body)
         setShowEdit(!showEdit)
         setRemoveTopicCue([])
         setAddTopicCue([])
@@ -109,7 +112,10 @@ updateSequence()
 
     function handleDelete(e){
         e.preventDefault()
+        setPostTitle(post.title)
+        setPostBody(post.body)
         deletePost(post.id);
+        setShowEdit(false);
     }
 
     return (
@@ -128,9 +134,9 @@ updateSequence()
             : 
         <div>
             <form id="post-update" value={post.id}>
-                <input type="text" onChange={handleSetPostTitle}></input>
+                <input type="text" value={postTitle} onChange={handleSetPostTitle}></input>
                 <br/>
-                <textarea type="text" onChange={handleSetPostBody}></textarea>
+                <textarea type="text" value={postBody} onChange={handleSetPostBody}></textarea>
                 <br/>
                 <select onChange={addRemoveQuery}>
                     <option value={null}>select a topic</option>

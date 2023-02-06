@@ -53,6 +53,7 @@ function confirmSubmitToUser(){
     userFeedbackElement.appendChild(p).innerText=`"${postTitle}" - post successful`;
     setPostBody("")
     setPostTile("")
+    setSelectedtopicsArray([])
     setSelectedTopicsDisplay([])
 }
 
