@@ -7,6 +7,7 @@ function CreatePost ({user,  topics, updatePostsArray, updateTopicsArray }) {
 const [selectedTopic, setSelectedTopic] = useState(null)
 const [selectedTopicsArray, setSelectedtopicsArray] = useState([])
 const [selectedTopicsDisplay, setSelectedTopicsDisplay] = useState([])
+const [postError, setNewPostError] = useState("")
 const [postTitle, setPostTile] = useState("")
 const [postBody, setPostBody] = useState("")
 const [newTopic, setNewTopic] = useState("")
@@ -20,13 +21,11 @@ function handleTopicSelect(e){
 }
 
 function handleAddTopic(e){
-   const selectedTopicsElement=document.getElementById("selected_topics")
-   console.log(selectedTopicsElement.innerText)
     // prevent default because it is inside a form
     e.preventDefault()
 
     setSelectedTopic(e.target.value)
-    // for the below function allow append child to add to the element so the topics names' accumulate
+    
     if (selectedTopicsArray.includes(selectedTopic) === false){
         setSelectedtopicsArray([...selectedTopicsArray, e.target.value]);
         setSelectedTopicsDisplay([...selectedTopicsDisplay, topics[e.target.value-1].name])
@@ -80,9 +79,15 @@ function handleSubmit(e){
             topic_id: selectedTopicsArray
         })
     })
-    .then((r)=>r.json())
-    .then((data)=>updatePostsArray(data))
-    .then(confirmSubmitToUser())
+    .then((r)=>{
+       if (r.ok) {
+        r.json().then((data)=>updatePostsArray(data))
+        .then(confirmSubmitToUser())
+       }
+       else
+       r.json().then((error) => setNewPostError(error.error) )
+    })
+    
 }
 
 // POST a topic to the db and update the topics array
@@ -97,9 +102,16 @@ function handleCreateTopic(){
             name: newTopic
         })
     })
-    .then(r=>r.json())
-    .then(topic=>updateTopicsArray(topic))
-    .then(confirmAddTopicToUser)
+    .then((r)=>{
+        if (r.ok){
+            r.json()
+            .then(topic=>updateTopicsArray(topic))
+            .then(confirmAddTopicToUser)
+        }
+        else r.json().then((error)=>{
+            setNewPostError(error.error)
+        })
+    })
 }
 
     return(
@@ -138,6 +150,7 @@ function handleCreateTopic(){
             <h2>Create Topic</h2>
             <input type="text" onChange={handleSetNewTopic} value={newTopic}></input>
             <button onClick={handleCreateTopic}>add topic</button>
+            <p>{postError}</p>
         </div>
     )
 }

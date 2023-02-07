@@ -6,7 +6,11 @@ class TopicsController < ApplicationController
 
     def create
         topic=Topic.create(topic_params)
+        if topic.valid?
         render json: topic
+        else
+        render json: { error: "make sure this topic has a name to add it" }, status: :unprocessable_entity
+        end
     end
 
     private

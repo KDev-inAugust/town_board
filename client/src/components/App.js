@@ -46,10 +46,8 @@ function updatePostsOnUpdate(updatedPost){
 // delete a post
 function deletePost(id){
   let filteredArray=publicPosts.filter((post)=>{
-    return post.id!==id;})
-    
-    console.log(filteredArray);
-  console.log(id, "yep")
+    return post.id!==id;});
+
   fetch(`/posts/${id}`, {
     method: "DELETE",
   }).then((r)=>{if(r.ok){setPublicPosts(filteredArray)
