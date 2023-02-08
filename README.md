@@ -35,10 +35,10 @@ This should start up the backend and subsequently the frontend.
     A user can create a post, this post will be visible to any user that can log-in to the platform and when a user goes to the user posts Route they will see a list of all of thier posts. All aspects of a Post can be updated in the user posts route. The button that triggers adding of a topic to a Post will dynamically change to "add" or "remove" mode based on whether or not the topic is already associated with the Post. A user can simultaneaously add and remove topics, and update the body and title of a Post in a single update which is triggered with the "save changes" button. 
 #### Post-Topics
 
-    A user can add as many of the post topics to a post topic as they want. 
+A user can add as many of the post topics to a post topic as they want. 
 ### Create a Topic
 
-    A user can create a topic. This Topic will be usable by all other users with accounts and it will appear in their topic drop-down menu. 
+A user can create a topic. This Topic will be usable by all other users with accounts and it will appear in their topic drop-down menu. 
 
 ## The Data Base
 
