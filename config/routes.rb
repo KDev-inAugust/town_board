@@ -14,5 +14,5 @@ Rails.application.routes.draw do
   delete "/post_topics", to: "post_topics#destroy"
   post "/add_to_post", to: "post_topics#add_to_post"
   # test routes
-
+  patch "/updatechain", to: "posts#updatechain"
 end

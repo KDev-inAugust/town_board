@@ -64,49 +64,68 @@ console.log("commit changes triggered")
 updateSequence()
 }
 
-// update title and body text
 
+// ----trying to shift it to the backend
 
-// remove topics from the current post while editing
-   
-  function updateSequence(){ 
-     fetch(`/post_topics`,{
-            method: "DELETE",
-            headers: {
-                "Content-Type":"application/json",
-            },
+function updateSequence(){
+
+    fetch('/updatechain',{
+        method: "PATCH",
+        headers: {
+        "Content-Type":"application/json",
+                    },
             body: JSON.stringify({
-                post_id: post.id,
-                topic_array: removeTopicCue
+            id: post.id,
+            title: postTitle,
+            body: postBody,
+            post_id: post.id,
+            destroy_topic_array: removeTopicCue,
+            add_topic_array: addTopicCue,
             })
-        }).then((res)=>{ if (res.ok) {
-            fetch('/add_to_post',{
-                method: "POST",
-                headers: {
-                    "Content-Type":"application/json",
-                },
-                body: JSON.stringify({
-                    post_id: post.id,
-                    topic_array: addTopicCue
-                })
-            }).then((res)=>{
-                if (res.ok){
-                    fetch(`/posts/${post.id}`,{
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type":"application/json",
-                        },
-                        body: JSON.stringify({
-                            title: postTitle,
-                            body: postBody
-                        })
-                    })
-                    .then((r)=>r.json())
-                    .then((data)=>{updatePostsOnUpdate(data)})
-                    setShowEdit(false)
-                }
             })
-        } })}
+    .then((r)=>r.json())
+    .then((data)=>{updatePostsOnUpdate(data)})
+    setShowEdit(false)
+    }
+    
+//   function updateSequence(){ 
+//      fetch(`/post_topics`,{
+//             method: "DELETE",
+//             headers: {
+//                 "Content-Type":"application/json",
+//             },
+//             body: JSON.stringify({
+//                 post_id: post.id,
+//                 topic_array: removeTopicCue
+//             })
+//         }).then((res)=>{ if (res.ok) {
+//             fetch('/add_to_post',{
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type":"application/json",
+//                 },
+//                 body: JSON.stringify({
+//                     post_id: post.id,
+//                     topic_array: addTopicCue
+//                 })
+//             }).then((res)=>{
+//                 if (res.ok){
+//                     fetch(`/posts/${post.id}`,{
+//                         method: "PATCH",
+//                         headers: {
+//                             "Content-Type":"application/json",
+//                         },
+//                         body: JSON.stringify({
+//                             title: postTitle,
+//                             body: postBody
+//                         })
+//                     })
+//                     .then((r)=>r.json())
+//                     .then((data)=>{updatePostsOnUpdate(data)})
+//                     setShowEdit(false)
+//                 }
+//             })
+//         } })}
 
 // add topics to the current post while editing
 
