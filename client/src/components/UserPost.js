@@ -2,7 +2,6 @@ import { useState } from "react"
 
 function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
 
-    console.log(post.id)
 
     const [showEdit, setShowEdit] = useState(false)
     const [postTitle, setPostTitle] = useState(post.title)
@@ -65,7 +64,7 @@ updateSequence()
 }
 
 
-// ----trying to shift it to the backend
+// ----the update sequence
 
 function updateSequence(){
 
@@ -131,8 +130,8 @@ function updateSequence(){
 
     function handleDelete(e){
         e.preventDefault()
-        setPostTitle(post.title)
-        setPostBody(post.body)
+        // setPostTitle(post.title)
+        // setPostBody(post.body)
         deletePost(post.id);
         setShowEdit(false);
     }
@@ -141,11 +140,11 @@ function updateSequence(){
         <div>
         <h2>{post.title}</h2>
         <p>{post.body}</p>
-        <h3>topics</h3>
-        <p>{post.topics.map((topic)=>{
-            return(<p>{topic.name}</p>)
+        <h3>topics:</h3>
+        <h4>{post.topics.map((topic)=>{
+            return(<p key={topic.id}>{topic.name}</p>)
             })
-        }</p>
+        }</h4>
         {showEdit===false? 
         <div>
             <button onClick={handleShowEdit}>edit post</button>
@@ -161,7 +160,7 @@ function updateSequence(){
                     <option value={null}>select a topic</option>
                     {topics.map((topic)=>{
                         return(
-                        <option value={topic.id}>{topic.name}</option>
+                        <option key ={topic.id} value={topic.id}>{topic.name}</option>
                         )
                         })}
                     </select>

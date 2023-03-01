@@ -3,25 +3,24 @@
 
 function PublicPosts ({publicPosts}) {
     
-    console.log(publicPosts)
     return (
 
         <div>
-            <h1>Public Posts</h1>
-            <p>{
+            <h1 className="post-header">Public Posts</h1>
+            <div>{
                 publicPosts.map((post)=>{
                     return(
-                        <div>
-                        <h3>{post.title}</h3>
-                        <p>{post.body}</p>
-                        <p>{post.topics.map((topic)=>{
+                        <div key={post.id}>
+                            <h3>{post.title}</h3>
+                            <p>{post.body}</p>
+                            <p>{post.topics.map((topic)=>{
                             return(<li key={topic.id}>{topic.name}</li>)
-                        }
-                        )}</p>
+                            }
+                            )}</p>
                         </div>
                     )
                 })
-                }</p>
+                }</div>
         </div>
     )
 }

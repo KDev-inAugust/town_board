@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-    
+    before_action :authorize
+
     def index
         posts=Post.all
         render json: posts.order(id: :asc)
@@ -7,13 +8,13 @@ class PostsController < ApplicationController
 
 
     def create 
-        post=Post.create(post_params)
-        if post.valid?
-        params[:topic_id].map { |id| post.post_topics.create(topic_id: id)}
-        render json: post, status: :created
-        else
-            render json: { error: "Make sure your post has at least a title and body to get started" }, status: :unprocessable_entity
-        end
+            post=Post.create(post_params)
+            if post.valid?
+            params[:topic_id].map { |id| post.post_topics.create(topic_id: id)}
+            render json: post, status: :created
+            else
+                render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
+            end
     end
 
     # def update
@@ -44,11 +45,18 @@ class PostsController < ApplicationController
 
             render json: post
     end
-   
+
+    # test methods
+
+    
     private
 
     def post_params
         params.permit(:title, :body, :user_id)
+    end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 
 end

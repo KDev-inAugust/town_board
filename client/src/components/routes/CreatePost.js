@@ -7,7 +7,7 @@ function CreatePost ({user,  topics, updatePostsArray, updateTopicsArray }) {
 const [selectedTopic, setSelectedTopic] = useState(null)
 const [selectedTopicsArray, setSelectedtopicsArray] = useState([])
 const [selectedTopicsDisplay, setSelectedTopicsDisplay] = useState([])
-const [postError, setNewPostError] = useState("")
+const [postError, setNewPostError] = useState([])
 const [postTitle, setPostTile] = useState("")
 const [postBody, setPostBody] = useState("")
 const [newTopic, setNewTopic] = useState("")
@@ -33,6 +33,7 @@ function handleAddTopic(e){
     else console.log("there")
 }
 
+// these functions handle setting post data to state
 function handleSetPostTitle(e){
     setPostTile(e.target.value)
 }
@@ -45,6 +46,7 @@ function handleSetNewTopic(e){
     setNewTopic(e.target.value)
 }
 
+// User feedback on successful post
 function confirmSubmitToUser(){
     let userFeedbackElement=document.getElementById("user-feedback-container");
     let p=document.createElement('p');
@@ -55,7 +57,7 @@ function confirmSubmitToUser(){
     setSelectedtopicsArray([])
     setSelectedTopicsDisplay([])
 }
-
+// user feedback on successful add topic
 function confirmAddTopicToUser(){
     let userFeedbackElement=document.getElementById("user-feedback-container");
     let p=document.createElement('p');
@@ -85,11 +87,14 @@ function handleSubmit(e){
         .then(confirmSubmitToUser())
        }
        else
-       r.json().then((error) => setNewPostError(error.error) )
+       r.json().then((errors) => {
+        let newErrors=errors.errors.map((index)=>{
+            return (<p key={index}>{index}</p>)
+        })
+        setNewPostError(newErrors);
+        })
     })
-    
 }
-
 // POST a topic to the db and update the topics array
 function handleCreateTopic(){
     console.log("create topic triggered")
@@ -116,7 +121,7 @@ function handleCreateTopic(){
 
     return(
         <div>
-        <h2>Create Post</h2>
+        <h1 className="post-header">Create Post</h1>
         <p id="user-feedback-container"></p>
         <form id="post-form" onSubmit={handleSubmit}>
            Title: <input type='text' onChange={handleSetPostTitle} value={postTitle}/>
@@ -126,7 +131,7 @@ function handleCreateTopic(){
                 <option value={null}>select a topic</option>
             {topics.map((topic)=>{
                 return(
-                    <option value={topic.id}>{topic.name}</option>
+                    <option key={topic.id} value={topic.id}>{topic.name}</option>
                 )
             })}
            </select>
