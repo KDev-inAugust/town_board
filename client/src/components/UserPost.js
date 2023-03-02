@@ -1,8 +1,7 @@
 import { useState } from "react"
 
 function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
-
-
+   
     const [showEdit, setShowEdit] = useState(false)
     const [postTitle, setPostTitle] = useState(post.title)
     const [postBody, setPostBody] = useState(post.body)
@@ -136,6 +135,12 @@ function updateSequence(){
         setShowEdit(false);
     }
 
+    function preventEnterKey (e){
+        if (e.keyCode===13) {
+            e.preventDefault()
+        }
+    }
+
     return (
         <div>
         <h2>{post.title}</h2>
@@ -145,14 +150,15 @@ function updateSequence(){
             return(<p key={topic.id}>{topic.name}</p>)
             })
         }</h4>
+        {/* This is where the EDIT FIELD code begins */}
         {showEdit===false? 
         <div>
             <button onClick={handleShowEdit}>edit post</button>
         </div> 
             : 
         <div>
-            <form id="post-update" value={post.id}>
-                <input type="text" value={postTitle} onChange={handleSetPostTitle}></input>
+            <form id="post-update" value={post.id} >
+                <input type="text" value={postTitle} onChange={handleSetPostTitle} onKeyDown={preventEnterKey}></input>
                 <br/>
                 <textarea type="text" value={postBody} onChange={handleSetPostBody}></textarea>
                 <br/>
