@@ -19,6 +19,7 @@ useEffect(()=>{
       r.json().then((user) => setUser(user));
     }
   })
+
 },[publicPosts])
 
 useEffect(()=>{

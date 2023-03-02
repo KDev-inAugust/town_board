@@ -1,11 +1,10 @@
 class PostsController < ApplicationController
-    before_action :authorize
+    before_action :authorize, only: [:create, :destroy]
 
     def index
         posts=Post.all
         render json: posts.order(id: :asc)
     end
-
 
     def create 
             post=Post.create(post_params)
