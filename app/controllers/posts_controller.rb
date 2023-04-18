@@ -45,9 +45,6 @@ class PostsController < ApplicationController
             render json: post
     end
 
-    # test methods
-
-    
     private
 
     def post_params
@@ -57,5 +54,15 @@ class PostsController < ApplicationController
     def authorize
         return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
+
+    # test methods
+
+   def time_posts
+    user=User.find_by(id: params[:id])
+    post=user.posts.where("title LIKE ?", "%Time%")
+    render json: post
+   end
+
+
 
 end

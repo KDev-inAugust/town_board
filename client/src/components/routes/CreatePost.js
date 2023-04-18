@@ -143,7 +143,7 @@ function handleCreateTopic(){
         </form>
         <button type="submit" form="post-form" value="Submit">Submit</button>
         <h4 id="selected_topics">Selected Topics: </h4>
-        <p>{
+        <p className="selected-topics">{
            selectedTopicsDisplay.map((topic)=>{
             const p=document.createElement('p')
             return(

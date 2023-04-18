@@ -78,28 +78,30 @@ if (user!==null){
   return (
     <div className="App">
       <header className="App-header">
-      <h2>Welcome, {user.user_name}</h2>
-      <button onClick={handleLogout}>Logout</button>
+        <h2>Welcome, {user.user_name}</h2>
+        <button onClick={handleLogout}>Logout</button>
+      </header>
+      
       <PostsContainer 
       user={user} 
       publicPosts={publicPosts} 
       updatePostsArray={updatePostsArray} 
       updatePostsOnUpdate={updatePostsOnUpdate}
       deletePost={deletePost}/>
-      </header>
+      
     </div>
   )
   }
   else return (
     <div className="App">
-      <header className="App-header">
+      <header id="login-header">
         <h1>Town Board</h1>
-        <h2>Log In</h2>
-        <LogIn onLogin={handleLogin}/>
-        <p>{error}</p>
-        <h2>Sign Up</h2>
-       <SignUp onLogin={handleLogin}/>
       </header>
+      <h2>Log In</h2>
+      <LogIn onLogin={handleLogin}/>
+      <p>{error}</p>
+      <h2>Sign Up</h2>
+      <SignUp onLogin={handleLogin}/>
     </div>
   );
 }

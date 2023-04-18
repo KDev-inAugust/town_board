@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   post "/add_to_post", to: "post_topics#add_to_post"
   patch "/updatechain", to: "posts#updatechain"
     # test routes
- 
+  get "users/:id/time_posts", to: "posts#time_posts"
 end

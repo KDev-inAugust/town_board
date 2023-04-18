@@ -142,14 +142,15 @@ function updateSequence(){
     }
 
     return (
-        <div>
+        <div className="post">
         <h2>{post.title}</h2>
         <p>{post.body}</p>
+        <br></br>
         <h3>topics:</h3>
-        <h4>{post.topics.map((topic)=>{
+        <p>{post.topics.map((topic)=>{
             return(<p key={topic.id}>{topic.name}</p>)
             })
-        }</h4>
+        }</p>
         {/* This is where the EDIT FIELD code begins */}
         {showEdit===false? 
         <div>

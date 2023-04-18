@@ -10,7 +10,7 @@ function PublicPosts ({publicPosts}) {
             <div>{
                 publicPosts.map((post)=>{
                     return(
-                        <div key={post.id}>
+                        <div className="post" key={post.id}>
                             <h3>{post.title}</h3>
                             <p>{post.body}</p>
                             <p>{post.topics.map((topic)=>{

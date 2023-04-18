@@ -1,10 +1,32 @@
+h1{margin-top: 0;}
+
+h2{
+  margin: 5px;
+}
+
+h3, h4, p {
+  margin: 5px;
+}
+
 .App {
   text-align: center;
+  background-color: #282c34;
+  color: #bbbbbb;
+  min-height: 100vh;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.selected-topics{
+  border-style: ridge;
+  border-width: 0.5px;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .post-header{
@@ -13,15 +35,38 @@
   padding: 8px;
 }
 
+
+.post {
+  position: relative;
+  padding: 10px;
+  border-width: 2px;
+  width: 50%;
+  margin-left: 25%;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  border-style: double;
+}
+
+
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  margin-bottom: 20px;
+  border-bottom: 2px double grey;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   justify-content: top;
-  font-size: calc(8px + 1vmin);
   color: white;
+}
+
+#login-header{
+  margin-top: 0;
+}
+
+.App-header button {
+  width: fit-content;
+  height: fit-content;
+  margin-top: 2px;
+  margin-left: 10px;
 }
 
 a {
