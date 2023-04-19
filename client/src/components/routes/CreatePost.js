@@ -62,7 +62,7 @@ function confirmAddTopicToUser(){
     let userFeedbackElement=document.getElementById("user-feedback-container");
     let p=document.createElement('p');
     p.id="user-feedback";
-    userFeedbackElement.appendChild(p).innerText=`"${newTopic}" - post successful`;
+    userFeedbackElement.appendChild(p).innerText=`"${newTopic}" - topic added`;
     setNewTopic("");
 }
 
