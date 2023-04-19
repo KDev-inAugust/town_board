@@ -7,14 +7,14 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-# User.all.delete_all
-# Post.all.delete_all
-# PostTopic.all.delete_all
-# Topic.all.delete_all
+User.all.delete_all
+Post.all.delete_all
+PostTopic.all.delete_all
+Topic.all.delete_all
 
 u1=User.create(user_name: "Tim", password: "password1")
-u2=User.create(user_name: "Ennakaia", password: "password2")
-u3=User.create(user_name: "Molandy", password: "password3")
+# u2=User.create(user_name: "Ennakaia", password: "password2")
+# u3=User.create(user_name: "Molandy", password: "password3")
 
 # p1=Post.create(title: "Tim's initial [Tim]", user_id: 1, body: "body of post one")
 # p2=Post.create(title: "Ennakaia's initial [Ennakaia]", user_id: 2, body: "body of post two")
