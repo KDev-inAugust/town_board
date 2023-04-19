@@ -7,10 +7,10 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-User.all.delete_all
-Post.all.delete_all
-PostTopic.all.delete_all
-Topic.all.delete_all
+User.destroy_all
+Post.destroy_all
+PostTopic.destroy_all
+Topic.destroy_all
 
 u1=User.create(user_name: "Tim", password: "password1")
 u2=User.create(user_name: "Ennakaia", password: "password2")
