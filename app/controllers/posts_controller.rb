@@ -9,18 +9,15 @@ class PostsController < ApplicationController
     def create 
             post=Post.create(post_params)
             if post.valid?
-            params[:topic_id].map { |id| post.post_topics.create(topic_id: id)}
+            params[:topic_array].map { |topic| post.post_topics.create(topic_id: topic[:id])}
             render json: post, status: :created
             else
                 render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
             end
-    end
 
-    # def update
-    #     post=Post.find_by(id: params[:id])
-    #     post.update(post_params)
-    #     render json: post
-    # end
+
+
+    end
 
     def destroy
         post=Post.find_by(id: params[:id])

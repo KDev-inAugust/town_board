@@ -18,10 +18,9 @@ const [newTopic, setNewTopic] = useState("")
 // ------ Create a New Post ----------
 function handleTopicSelect(e){
     if (e.target.value!==null){
-        setSelectedTopic(e.target.value);
-
+        setSelectedTopic(topics[e.target.value]);
+        console.log(topics[e.target.value])
     }
-    
 }
 
 function handleAddTopic(e){
@@ -30,11 +29,11 @@ function handleAddTopic(e){
     // selectedTopic is a primary id
     e.preventDefault()
 
-    console.log(topics[e.target.value].name)
+    console.log(selectedTopic.name)
     
     if (selectedTopicsArray.includes(selectedTopic) === false){
-        setSelectedtopicsArray([...selectedTopicsArray, e.target.value]);
-        setSelectedTopicsDisplay([...selectedTopicsDisplay, topics[e.target.value].name])
+        setSelectedtopicsArray([...selectedTopicsArray, selectedTopic]);
+        setSelectedTopicsDisplay([...selectedTopicsDisplay, selectedTopic.name])
     }
     else console.log("there")
 }
@@ -74,6 +73,9 @@ function confirmAddTopicToUser(){
 
 // POST a post to the db and update the post array
 function handleSubmit(e){
+
+    console.log(selectedTopicsArray)
+
     e.preventDefault()
     fetch("/posts",{
         method: "POST",
@@ -84,7 +86,7 @@ function handleSubmit(e){
             user_id: user.id,
             title: postTitle,
             body: postBody,
-            topic_id: selectedTopicsArray
+            topic_array: selectedTopicsArray
         })
     })
     .then((r)=>{
@@ -143,7 +145,7 @@ function handleCreateTopic(){
             })}
 
            </select>
-           <button onClick={handleAddTopic} value={selectedTopic}>add topic</button>
+           <button onClick={handleAddTopic}>add topic</button>
            <br/>
             Post Text: 
             <br/>
