@@ -19,7 +19,7 @@ function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpda
   useEffect(()=>{
     fetch("/topics")
     .then((r)=>r.json())
-    .then((data)=>{setTopics(data);
+    .then((data)=>{console.log(data);
     }
     );
 },[])

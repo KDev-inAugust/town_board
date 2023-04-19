@@ -2,7 +2,6 @@
 
 
 function PublicPosts ({publicPosts}) {
-    
     return (
 
         <div>
