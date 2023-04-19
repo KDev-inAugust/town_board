@@ -13,25 +13,25 @@ PostTopic.all.delete_all
 Topic.all.delete_all
 
 u1=User.create(user_name: "Tim", password: "password1")
-# u2=User.create(user_name: "Ennakaia", password: "password2")
-# u3=User.create(user_name: "Molandy", password: "password3")
+u2=User.create(user_name: "Ennakaia", password: "password2")
+u3=User.create(user_name: "Molandy", password: "password3")
 
-# p1=Post.create(title: "Tim's initial [Tim]", user_id: 1, body: "body of post one")
-# p2=Post.create(title: "Ennakaia's initial [Ennakaia]", user_id: 2, body: "body of post two")
-# p3=Post.create(title: "Molandy's initial [Molandy]", user_id: 3, body: "body of post three")
-# p4=Post.create(title: "Tim's follow up [Tim]", user_id: 1, body: "body of post three")
-# p5=Post.create(title: "Ennakaia's follow up [Ennakaia]", user_id: 2, body: "body of post three")
-# p6=Post.create(title: "Molandy's Follow Up [Molandy]", user_id: 3, body: "body of post three")
+p1=Post.create(title: "Tim's initial [Tim]", user_id: 1, body: "body of post one")
+p2=Post.create(title: "Ennakaia's initial [Ennakaia]", user_id: 2, body: "body of post two")
+p3=Post.create(title: "Molandy's initial [Molandy]", user_id: 3, body: "body of post three")
+p4=Post.create(title: "Tim's follow up [Tim]", user_id: 1, body: "body of post three")
+p5=Post.create(title: "Ennakaia's follow up [Ennakaia]", user_id: 2, body: "body of post three")
+p6=Post.create(title: "Molandy's Follow Up [Molandy]", user_id: 3, body: "body of post three")
 
 
 t4=Topic.create(name: "Other")
 
-# pt1=PostTopic.create(topic_id: 1, post_id: 1)
-# pt2=PostTopic.create(topic_id: 2, post_id: 1)
-# pt3=PostTopic.create(topic_id: 3, post_id: 1)
-# pt4=PostTopic.create(topic_id: 1, post_id: 2)
-# pt5=PostTopic.create(topic_id: 2, post_id: 2)
-# pt6=PostTopic.create(topic_id: 3, post_id: 2)
-# pt7=PostTopic.create(topic_id: 1, post_id: 3)
+pt1=PostTopic.create(topic_id: 1, post_id: 1)
+pt2=PostTopic.create(topic_id: 2, post_id: 1)
+pt3=PostTopic.create(topic_id: 3, post_id: 1)
+pt4=PostTopic.create(topic_id: 1, post_id: 2)
+pt5=PostTopic.create(topic_id: 2, post_id: 2)
+pt6=PostTopic.create(topic_id: 3, post_id: 2)
+pt7=PostTopic.create(topic_id: 1, post_id: 3)
 
 puts "done seeding"
