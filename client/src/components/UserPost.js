@@ -143,16 +143,16 @@ function updateSequence(){
 
     return (
         <div className="post">
-        <h2>{post.title}</h2>
-        <p>{post.body}</p>
-        <br></br>
-        <h3>topics:</h3>
-        <p>{post.topics.map((topic)=>{
-            return(<p key={topic.id}>{topic.name}</p>)
-            })
-        }</p>
-        {/* This is where the EDIT FIELD code begins */}
-        {showEdit===false? 
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+            <br></br>
+            <h3>topics:</h3>
+            <h4>{post.topics.map((topic)=>{
+                return(<p key={topic.id}>{topic.name}</p>)
+                })
+            }</h4>
+            {/* This is where the EDIT FIELD code begins */}
+            {showEdit===false? 
         <div>
             <button onClick={handleShowEdit}>edit post</button>
         </div> 
@@ -170,10 +170,12 @@ function updateSequence(){
                         <option key ={topic.id} value={topic.id}>{topic.name}</option>
                         )
                         })}
-                    </select>
+                </select>
+                
                 { addRemoveButton===false? <button onClick={removeCue}>remove topic from post</button> : <button onClick={addCue}>add topic to post</button> }
 
                 { removeTopicCue.map((topicID)=>{
+
                     const p=document.createElement('p');
                     return(
                     p.innerText=`remove: ${topics[topicID-1].name}, `

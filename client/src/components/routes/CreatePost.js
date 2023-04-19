@@ -17,18 +17,25 @@ const [newTopic, setNewTopic] = useState("")
 
 // ------ Create a New Post ----------
 function handleTopicSelect(e){
-    setSelectedTopic(e.target.value)
+    if (e.target.value!==null){
+        setSelectedTopic(e.target.value);
+
+        console.log(e.target.value)
+    }
+    
 }
 
 function handleAddTopic(e){
     // prevent default because it is inside a form
+    // selectedTopicsArray is an array of names as strings
+    // selectedTopic is a primary id
     e.preventDefault()
 
-    setSelectedTopic(e.target.value)
+    console.log(topics[e.target.value].name)
     
     if (selectedTopicsArray.includes(selectedTopic) === false){
         setSelectedtopicsArray([...selectedTopicsArray, e.target.value]);
-        setSelectedTopicsDisplay([...selectedTopicsDisplay, topics[e.target.value-1].name])
+        setSelectedTopicsDisplay([...selectedTopicsDisplay, topics[e.target.value].name])
     }
     else console.log("there")
 }
@@ -128,12 +135,14 @@ function handleCreateTopic(){
            <br/>
            Topic: 
            <select onChange={handleTopicSelect}> 
+           
                 <option value={null}>select a topic</option>
-            {topics.map((topic)=>{
+            {topics.map((topic, index)=>{
                 return(
-                    <option key={topic.id} value={topic.id}>{topic.name}</option>
+                    <option key={topic.id} value={index}>{topic.name}</option>
                 )
             })}
+
            </select>
            <button onClick={handleAddTopic} value={selectedTopic}>add topic</button>
            <br/>
@@ -143,7 +152,7 @@ function handleCreateTopic(){
         </form>
         <button type="submit" form="post-form" value="Submit">Submit</button>
         <h4 id="selected_topics">Selected Topics: </h4>
-        <p className="selected-topics">{
+        <div className="selected-topics">{
            selectedTopicsDisplay.map((topic)=>{
             const p=document.createElement('p')
             return(
@@ -151,7 +160,7 @@ function handleCreateTopic(){
                 )
            })
         }
-        </p>
+        </div>
             <h2>Create Topic</h2>
             <input type="text" onChange={handleSetNewTopic} value={newTopic}></input>
             <button onClick={handleCreateTopic}>add topic</button>
