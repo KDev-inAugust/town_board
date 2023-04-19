@@ -23,4 +23,3 @@ export default function UserPosts ({user, topics, updatePostsOnUpdate, deletePos
         </div>
     )
 }
-

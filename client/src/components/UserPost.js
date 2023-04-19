@@ -6,7 +6,7 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
     const [postTitle, setPostTitle] = useState(post.title)
     const [postBody, setPostBody] = useState(post.body)
     const [addRemoveButton, setAddRemoveButton] = useState(null)
-    const [selectedTopicId, setSelectedTopicId] = useState(null)
+    const [selectedTopicIndex, setSelectedTopicIndex] = useState(null)
     const [removeTopicCue, setRemoveTopicCue] = useState([])
     const [addTopicCue, setAddTopicCue] = useState([])
 
@@ -24,12 +24,16 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
 
     function addRemoveQuery(e){
         e.preventDefault()
-        setSelectedTopicId(parseInt(e.target.value))
+        console.log("add remove query sets the topic arr index as", e.target.value, 
+        "should reflect topic named: ", topics[e.target.value]
+        )
+        setSelectedTopicIndex(parseInt(e.target.value))
         // post topics includes selected? (target value is topic id)
-        let arr=[];
-        post.topics.map(post=>arr.push(post.id))
-        arr.includes(parseInt(e.target.value))===true? setAddRemoveButton(false) : setAddRemoveButton(true)
+        let topicIdarr=[];
+        post.topics.map(topic=>topicIdarr.push(topic.id))
+        topicIdarr.includes(topics[e.target.value].id)===true? setAddRemoveButton(false) : setAddRemoveButton(true)
     }
+
 
 // this function sets state to show the edit fields
     function handleShowEdit(){
@@ -43,16 +47,24 @@ function UserPost ({post, topics, updatePostsOnUpdate, deletePost}) {
 
 // cue topics for removal
 function removeCue(e){
-    e.preventDefault()
-    removeTopicCue.includes(selectedTopicId)===false?
-    setRemoveTopicCue([...removeTopicCue,selectedTopicId]) : console.log("already in the cue");
+    e.preventDefault();
+    console.log(selectedTopicIndex,  "   VS  ", topics[selectedTopicIndex].id);
+
+    console.log("remove topic cue", removeTopicCue);
+
+    removeTopicCue.includes(topics[selectedTopicIndex].id)===false?
+    setRemoveTopicCue([...removeTopicCue, topics[selectedTopicIndex]]) : console.log("already in the cue");
 }
 
 // cue topics for addition
 function addCue(e){
     e.preventDefault()
-    addTopicCue.includes(selectedTopicId)===false?
-    setAddTopicCue([...addTopicCue, selectedTopicId]) : console.log("already in the cue")
+    console.log(selectedTopicIndex,  "   VS  ", topics[selectedTopicIndex].id);
+
+    console.log("ADD topic cue", addTopicCue);
+
+    addTopicCue.includes(topics[selectedTopicIndex].id)===false?
+    setAddTopicCue([...addTopicCue, topics[selectedTopicIndex]]) : console.log("already in the cue")
 }
 
 // ---------- this function commits changes to the post in sequence
@@ -66,6 +78,8 @@ updateSequence()
 // ----the update sequence
 
 function updateSequence(){
+
+console.log(`add cue ${addTopicCue} - - remove cue ${removeTopicCue}`)
 
     fetch('/updatechain',{
         method: "PATCH",
@@ -82,55 +96,17 @@ function updateSequence(){
             })
             })
     .then((r)=>r.json())
-    .then((data)=>{updatePostsOnUpdate(data)})
+    .then((data)=>{
+        console.log(data);
+        updatePostsOnUpdate(data);
+    
+    })
     setShowEdit(false)
     }
     
-//   function updateSequence(){ 
-//      fetch(`/post_topics`,{
-//             method: "DELETE",
-//             headers: {
-//                 "Content-Type":"application/json",
-//             },
-//             body: JSON.stringify({
-//                 post_id: post.id,
-//                 topic_array: removeTopicCue
-//             })
-//         }).then((res)=>{ if (res.ok) {
-//             fetch('/add_to_post',{
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type":"application/json",
-//                 },
-//                 body: JSON.stringify({
-//                     post_id: post.id,
-//                     topic_array: addTopicCue
-//                 })
-//             }).then((res)=>{
-//                 if (res.ok){
-//                     fetch(`/posts/${post.id}`,{
-//                         method: "PATCH",
-//                         headers: {
-//                             "Content-Type":"application/json",
-//                         },
-//                         body: JSON.stringify({
-//                             title: postTitle,
-//                             body: postBody
-//                         })
-//                     })
-//                     .then((r)=>r.json())
-//                     .then((data)=>{updatePostsOnUpdate(data)})
-//                     setShowEdit(false)
-//                 }
-//             })
-//         } })}
-
-// add topics to the current post while editing
 
     function handleDelete(e){
         e.preventDefault()
-        // setPostTitle(post.title)
-        // setPostBody(post.body)
         deletePost(post.id);
         setShowEdit(false);
     }
@@ -165,26 +141,27 @@ function updateSequence(){
                 <br/>
                 <select onChange={addRemoveQuery}>
                     <option value={null}>select a topic</option>
-                    {topics.map((topic)=>{
+                    {topics.map((topic, index)=>{
                         return(
-                        <option key ={topic.id} value={topic.id}>{topic.name}</option>
+                        <option key ={topic.id} value={index}>{topic.name}</option>
                         )
                         })}
                 </select>
-                
+
                 { addRemoveButton===false? <button onClick={removeCue}>remove topic from post</button> : <button onClick={addCue}>add topic to post</button> }
 
-                { removeTopicCue.map((topicID)=>{
+                { removeTopicCue.map((index)=>{
 
                     const p=document.createElement('p');
                     return(
-                    p.innerText=`remove: ${topics[topicID-1].name}, `
+                    p.innerText=`remove: ${index.name}, `
                     )})
                 }
-                { addTopicCue.map((topicID)=>{
+                <br></br>
+                { addTopicCue.map((index)=>{
                     const p=document.createElement('p');
                     return(
-                    p.innerText=`add: ${topics[topicID-1].name}, `
+                    p.innerText=`add: ${index.name}, `
                     )})
                 }
 

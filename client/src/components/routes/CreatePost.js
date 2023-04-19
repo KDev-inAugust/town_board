@@ -20,7 +20,6 @@ function handleTopicSelect(e){
     if (e.target.value!==null){
         setSelectedTopic(e.target.value);
 
-        console.log(e.target.value)
     }
     
 }
