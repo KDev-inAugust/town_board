@@ -1,5 +1,5 @@
 class PostTopicsController < ApplicationController
-
+    before_action :authorize
 
     def index
         pt=PostTopic.all

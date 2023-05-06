@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+    before_action :authorize
     def index
         topics = Topic.all
         render json: topics

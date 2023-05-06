@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-
+    before_action :authorize
+    
     def index
         users=User.all
         render json: users, include: ['posts.topics']
