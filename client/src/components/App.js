@@ -79,7 +79,9 @@ if (user!==null){
     <div className="App">
       <header className="App-header">
         <h2>Welcome, {user.user_name}</h2>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout}>
+          Logout
+          </button>
       </header>
       
       <PostsContainer 

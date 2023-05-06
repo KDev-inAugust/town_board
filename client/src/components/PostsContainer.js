@@ -35,7 +35,7 @@ function updateTopicsArray(topic){
       element: <Nav />, 
       children: [
           {
-            path: "CreatePosts",
+            path: "https://town-board.onrender.com/CreatePosts",
             element: <CreatePost 
             user={user} 
             topics={topics} 
@@ -44,11 +44,11 @@ function updateTopicsArray(topic){
             />,
           },
           {
-            path: "PublicPosts",
+            path: "https://town-board.onrender.com/PublicPosts",
             element: <PublicPosts publicPosts={publicPosts} />,
           },
           {
-            path: "UserPosts",
+            path: "https://town-board.onrender.com/UserPost",
             element: <UserPosts user={user} topics={topics} updatePostsOnUpdate={updatePostsOnUpdate} deletePost={deletePost}/>
           }
       ] 
