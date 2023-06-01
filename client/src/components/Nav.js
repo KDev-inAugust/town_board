@@ -6,15 +6,15 @@ export default function Nav(){
     return (
         <div>
              <button>
-             <Link to={`./CreatePosts`}>Create Post</Link>
+             <Link to={`CreatePosts`}>Create Post</Link>
              </button>
 
              <button>
-             <Link to={`./PublicPosts`}>Public Posts  </Link>
+             <Link to={`PublicPosts`}>Public Posts  </Link>
              </button>
              
              <button>
-             <Link to={`./UserPosts`}>User Posts  </Link>
+             <Link to={`UserPosts`}>User Posts  </Link>
              </button>
              <div>
                 <Outlet />
