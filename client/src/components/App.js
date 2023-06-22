@@ -13,7 +13,7 @@ const [publicPosts, setPublicPosts] = useState([])
 
 
 useEffect(()=>{
-  fetch("/me")
+  fetch("/api/me")
   .then((r)=> {
     if (r.ok) {
       r.json().then((user) => setUser(user));
@@ -22,7 +22,7 @@ useEffect(()=>{
 },[publicPosts])
 
 useEffect(()=>{
-    fetch("/posts")
+    fetch("/api/posts")
     .then((r)=>r.json())
     .then((publicPosts)=>setPublicPosts(publicPosts))
 },[])
@@ -48,7 +48,7 @@ function deletePost(id){
   let filteredArray=publicPosts.filter((post)=>{
     return post.id!==id;});
 
-  fetch(`/posts/${id}`, {
+  fetch(`/api/posts/${id}`, {
     method: "DELETE",
   }).then((r)=>{if(r.ok){setPublicPosts(filteredArray)
   }})
@@ -56,12 +56,12 @@ function deletePost(id){
 
 // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 function handleLogin(){
-  fetch("/me")
+  fetch("/api/me")
   .then((r)=> {
     if (r.ok) {
       r.json().then((user) => {setUser(user);
       
-      fetch("/posts")
+      fetch("/api/posts")
     .then((r)=>r.json())
     .then((publicPosts)=>setPublicPosts(publicPosts))
       }
@@ -74,7 +74,7 @@ function handleLogin(){
 }
 
 function handleLogout(){
-  fetch("/logout", {
+  fetch("/api/logout", {
     method: "DELETE",
   }).then(()=> setUser(null))
 }

@@ -77,7 +77,7 @@ function handleSubmit(e){
     console.log(selectedTopicsArray)
 
     e.preventDefault()
-    fetch("/posts",{
+    fetch("/api/posts",{
         method: "POST",
         headers: {
             "Content-Type":"application/json",
@@ -106,7 +106,7 @@ function handleSubmit(e){
 // POST a topic to the db and update the topics array
 function handleCreateTopic(){
     console.log("create topic triggered")
-    fetch("/topics",{
+    fetch("/api/topics",{
         method: "POST",
         headers: {
             "Content-Type":"application/json",

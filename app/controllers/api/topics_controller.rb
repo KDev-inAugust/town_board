@@ -1,4 +1,4 @@
-class TopicsController < ApplicationController
+class Api::TopicsController < ApplicationController
     before_action :authorize
     def index
         topics = Topic.all

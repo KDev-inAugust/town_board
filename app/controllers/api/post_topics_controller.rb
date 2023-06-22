@@ -1,4 +1,4 @@
-class PostTopicsController < ApplicationController
+class Api::PostTopicsController < ApplicationController
     before_action :authorize
 
     def index

@@ -81,7 +81,7 @@ function updateSequence(){
 
 console.log(`add cue ${addTopicCue} - - remove cue ${removeTopicCue}`)
 
-    fetch('/updatechain',{
+    fetch('/api/updatechain',{
         method: "PATCH",
         headers: {
         "Content-Type":"application/json",

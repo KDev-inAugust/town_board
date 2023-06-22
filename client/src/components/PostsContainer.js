@@ -17,7 +17,7 @@ function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpda
   const [topics, setTopics] = useState([])
 
   useEffect(()=>{
-    fetch("/topics")
+    fetch("/api/topics")
     .then((r)=>r.json())
     .then((data)=>{setTopics(data);
     }
