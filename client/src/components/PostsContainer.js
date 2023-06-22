@@ -24,6 +24,7 @@ function PostsContainer ({user, publicPosts, updatePostsArray, updatePostsOnUpda
     );
 },[])
 
+
 // add a topic
 function updateTopicsArray(topic){
   setTopics([...topics, topic])

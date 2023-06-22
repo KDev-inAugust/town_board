@@ -19,7 +19,6 @@ useEffect(()=>{
       r.json().then((user) => setUser(user));
     }
   })
-
 },[publicPosts])
 
 useEffect(()=>{
@@ -60,7 +59,14 @@ function handleLogin(){
   fetch("/me")
   .then((r)=> {
     if (r.ok) {
-      r.json().then((user) => setUser(user))
+      r.json().then((user) => {setUser(user);
+      
+      fetch("/posts")
+    .then((r)=>r.json())
+    .then((publicPosts)=>setPublicPosts(publicPosts))
+      }
+      );
+      
     }
     else
     r.json().then((data) => setError(data.error))
@@ -75,6 +81,9 @@ function handleLogout(){
 
 
 if (user!==null){
+  
+console.log(publicPosts)
+  
   return (
     <div className="App">
       <header className="App-header">

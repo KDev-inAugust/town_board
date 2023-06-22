@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "users#index"
+
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
   get "/me", to: "users#show"
@@ -14,6 +15,5 @@ Rails.application.routes.draw do
   delete "/post_topics", to: "post_topics#destroy"
   post "/add_to_post", to: "post_topics#add_to_post"
   patch "/updatechain", to: "posts#updatechain"
-    # test routes
-  get "users/:id/time_posts", to: "posts#time_posts"
+  
 end
