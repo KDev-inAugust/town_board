@@ -6,7 +6,6 @@ import PublicPosts from "./routes/PublicPosts.js";
 import UserPosts from "./routes/UserPosts.js";
 
 import {
-  BrowserRouter,
     createBrowserRouter,
     RouterProvider,
   } from "react-router-dom";
@@ -57,7 +56,6 @@ function updateTopicsArray(topic){
 },
 
   ]);
-
     return (
         <div>
           <RouterProvider router={router} />
